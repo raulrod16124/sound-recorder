@@ -52,6 +52,7 @@ function App() {
 
   const recoderRenderer = () => {
     if (stream === null) {
+      // TODO - #16 Implement the No perimission view here
       return <button className="record-play">Loading…</button>;
     }
     return <Recorder stream={stream} />;
