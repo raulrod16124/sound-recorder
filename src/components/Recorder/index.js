@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.scss";
 
 import PropTypes from "prop-types";
 import { useMemo } from "react";
