@@ -1,8 +1,10 @@
 import "./App.scss";
 
 import { useEffect, useMemo, useState } from "react";
+import { Provider } from "react-redux";
 
 import Recorder from "./components/Recorder";
+import store from "./store";
 
 function App() {
   const constraints = useMemo(() => {
@@ -59,12 +61,12 @@ function App() {
   };
 
   return (
-    <>
+    <Provider store={store}>
       <header>
         <h1>Sound Recorder</h1>
       </header>
       <main>{recoderRenderer()}</main>
-    </>
+    </Provider>
   );
 }
 
