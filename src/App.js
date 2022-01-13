@@ -1,18 +1,22 @@
-import Recorder from './components/Recorder'
-import './App.css';
-import { useEffect, useState, useMemo } from 'react';
+import "./App.css";
+
+import { useEffect, useMemo, useState } from "react";
+
+import Recorder from "./components/Recorder";
 
 function App() {
-  const constraints = useMemo(() => { return {audio: true} }, [])
-  const [stream, setStream] = useState(null)
-  const [error, setError] = useState(null)
+  const constraints = useMemo(() => {
+    return { audio: true };
+  }, []);
+  const [stream, setStream] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if ( stream ) {
-      return
+    if (stream) {
+      return;
     }
 
-    let didCancel = false
+    let didCancel = false;
 
     const getUserMedia = async () => {
       try {
@@ -25,44 +29,40 @@ function App() {
           setError(err);
         }
       }
-    }
+    };
 
     const cancel = () => {
       didCancel = true;
 
       if (!stream) return;
 
-      if ((stream).getAudioTracks) {
-        (stream).getAudioTracks().map(track => track.stop());
+      if (stream.getAudioTracks) {
+        stream.getAudioTracks().map((track) => track.stop());
       }
 
-      if ((stream).stop) {
-        (stream).stop();
+      if (stream.stop) {
+        stream.stop();
       }
-    }
+    };
 
     getUserMedia();
 
     return cancel;
-  }, [constraints, stream, error])
+  }, [constraints, stream, error]);
 
   const recoderRenderer = () => {
-    if( stream === null ) {
-      return (<button className="record-play">Loading…</button>)
+    if (stream === null) {
+      return <button className="record-play">Loading…</button>;
     }
-    return (
-      <Recorder stream={stream} />
-    )
-  }
-  
+    return <Recorder stream={stream} />;
+  };
+
   return (
     <>
-    <header>
-      <h1>Sound Recorder</h1>
-    </header>
-    <main>
-      {recoderRenderer()}
-    </main>
+      <header>
+        <h1>Sound Recorder</h1>
+      </header>
+      <main>{recoderRenderer()}</main>
     </>
   );
 }
