@@ -1,16 +1,27 @@
 import "./style.scss";
 
 import PropTypes from "prop-types";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 
 import useMediaRecorder from "../../hooks/useMediaRecorder";
-import Recording from "../Recording";
+import RecordingsList from "../RecordingsList";
 import Visualizer from "../Visualizer";
 
 const Recorder = ({ stream }) => {
-  // TODO - #17 Delete recordings and setRecordings when redux be implemented
-  const { recorder, recordings, setRecordings, isRecording } =
-    useMediaRecorder(stream);
+  const { recorder, isRecording } = useMediaRecorder(stream);
+
+  const RecorderState = useSelector((state) => {
+    return state.RecorderReducer;
+  });
+
+  const [recordings, setRecordings] = useState([]);
+
+  useEffect(() => {
+    if (RecorderState.status === "success") {
+      setRecordings(RecorderState.list);
+    }
+  }, [RecorderState.list]);
 
   // TODO - #16 Refactoring the text according to the UI to implement
   const defaultRecordClass = "record-play";
@@ -34,62 +45,6 @@ const Recorder = ({ stream }) => {
     }
   };
 
-  // TODO - #18 Move edit function to the RecordingsList component
-  const editRecordingName = (e) => {
-    let id = e.target.parentNode.parentNode.attributes.id.value;
-    let newRecordings = [...recordings];
-    let targetItem = recordings.filter((item) => {
-      if (item.id === id) {
-        return item;
-      }
-      return false;
-    });
-    let index = recordings.indexOf(targetItem[0]);
-    let newName =
-      window.prompt("Enter a new name", targetItem[0].name) ??
-      targetItem[0].name; // necessary because this returns null if the user doesn't enter anything
-    targetItem[0].name = newName;
-    newRecordings.splice(index, 1, targetItem[0]);
-    setRecordings(newRecordings);
-  };
-
-  // TODO - #18 Move delete function to the RecordingsList component
-  const deleteRecording = (e) => {
-    let id = e.target.parentNode.attributes.id.value;
-    let deleteRecording = window.confirm(
-      "Are you sure you want to delete this recording?"
-    );
-    if (deleteRecording === true) {
-      let newRecordings = recordings.filter((item) => {
-        if (id !== item.id) {
-          return true;
-        }
-        return false;
-      });
-      e.target.parentNode.classList.add("vanish");
-      setTimeout(() => {
-        setRecordings([...newRecordings]);
-      }, 900);
-    }
-  };
-  // TODO - #18 Move renderAudio to the RecordingsList component
-  const renderAudio = () => {
-    let audios = recordings.map((recording, index) => {
-      return (
-        <Recording
-          stream={recording.stream}
-          key={recording.id}
-          name={recording.name}
-          id={recording.id}
-          onDeleteHandler={deleteRecording}
-          onEditNameHandler={editRecordingName}
-        />
-      );
-    });
-
-    return audios;
-  };
-
   return (
     <>
       <Visualizer
@@ -100,7 +55,7 @@ const Recorder = ({ stream }) => {
       <button onClick={toggleRecording} className={recordButtonClassesText}>
         {recordingStateText}
       </button>
-      <section>{renderAudio()}</section>
+      <RecordingsList recordings={recordings} />
     </>
   );
 };

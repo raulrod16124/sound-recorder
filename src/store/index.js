@@ -2,7 +2,9 @@ import { combineReducers, createStore } from "redux";
 
 import { RecorderReducer } from "../state/reducer";
 
-const reducers = combineReducers(RecorderReducer);
+const reducers = combineReducers({
+  RecorderReducer: RecorderReducer,
+});
 
 // TODO - Apply thunk middleware
 const store = createStore(reducers);

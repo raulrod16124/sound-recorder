@@ -1,4 +1,7 @@
-import {useMemo, useState} from "react";
+import { useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { CreateSountracks } from "../state/actions";
 
 /**
  * This media recorder hook keeps all the logic needed to perform an audio recording decoupling it from any component
@@ -22,6 +25,8 @@ import {useMemo, useState} from "react";
  *
  */
 export default function useMediaRecorder(stream) {
+  const dispatch = useDispatch();
+
   const [isRecording, setIsRecording] = useState(false);
   const [recordings, setRecordings] = useState([]);
   const [chunks, setChunks] = useState([]);
@@ -30,28 +35,35 @@ export default function useMediaRecorder(stream) {
 
   const handleStart = () => {
     setIsRecording(true);
-  }
+  };
 
   const handleStop = () => {
-    const blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' })
-    const audioURL = window.URL.createObjectURL(blob)
+    const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+    const audioURL = window.URL.createObjectURL(blob);
 
-    // push the new recording to the recordings list
-    setRecordings(currentRecordings => {
-      return [...currentRecordings, ...[{
+    dispatch(
+      CreateSountracks({
         stream: audioURL,
-        name: new Date().toISOString().split('.')[0].split('T').join(' '),
-        id: `id${window.performance.now().toString()}`
-      }]]
-    })
+        name: new Date().toISOString().split(".")[0].split("T").join(" "),
+        id: `id${window.performance.now().toString()}`,
+      })
+    );
+    // push the new recording to the recordings list
+    // setRecordings(currentRecordings => {
+    //   return [...currentRecordings, ...[{
+    //     stream: audioURL,
+    //     name: new Date().toISOString().split('.')[0].split('T').join(' '),
+    //     id: `id${window.performance.now().toString()}`
+    //   }]]
+    // })
 
-    setChunks([])
+    setChunks([]);
     setIsRecording(false);
-  }
+  };
 
   const handleDataAvailable = (e) => {
-    setChunks(currentChunks => [...currentChunks, e.data]);
-  }
+    setChunks((currentChunks) => [...currentChunks, e.data]);
+  };
 
   recorder.onstop = handleStop;
   recorder.onstart = handleStart;
@@ -62,5 +74,5 @@ export default function useMediaRecorder(stream) {
     recordings,
     setRecordings,
     isRecording,
-  }
+  };
 }
