@@ -74,6 +74,7 @@ const Recorder = ({ stream }) => {
       <button onClick={toggleRecording} className={recordButtonClassesText}>
         {recordingStateText}
       </button>
+      {/* Implement Loading component */}
       {!failureRecordings ? (
         <RecordingsList recordings={recordings} setRecordings={setRecordings} />
       ) : (
