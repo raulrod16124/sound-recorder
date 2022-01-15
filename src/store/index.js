@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import thunk from "redux-thunk";
 
 import { RecorderReducer } from "../state/reducer";
 
@@ -7,6 +8,6 @@ const reducers = combineReducers({
 });
 
 // TODO - Apply thunk middleware
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(thunk));
 
 export default store;

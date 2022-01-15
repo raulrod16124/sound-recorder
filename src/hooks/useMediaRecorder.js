@@ -1,7 +1,8 @@
+import { object } from "prop-types";
 import { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { CreateSountracks } from "../state/actions";
+import { CreateRecording } from "../state/actions";
 
 /**
  * This media recorder hook keeps all the logic needed to perform an audio recording decoupling it from any component
@@ -42,20 +43,12 @@ export default function useMediaRecorder(stream) {
     const audioURL = window.URL.createObjectURL(blob);
 
     dispatch(
-      CreateSountracks({
+      CreateRecording({
         stream: audioURL,
         name: new Date().toISOString().split(".")[0].split("T").join(" "),
         id: `id${window.performance.now().toString()}`,
       })
     );
-    // push the new recording to the recordings list
-    // setRecordings(currentRecordings => {
-    //   return [...currentRecordings, ...[{
-    //     stream: audioURL,
-    //     name: new Date().toISOString().split('.')[0].split('T').join(' '),
-    //     id: `id${window.performance.now().toString()}`
-    //   }]]
-    // })
 
     setChunks([]);
     setIsRecording(false);

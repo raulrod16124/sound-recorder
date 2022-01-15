@@ -1,6 +1,8 @@
 export const Types = {
-  getAllSoundtracks: "@GET_ALL_SOUNDTRACKS",
-  createSoundtracks: "@CREATE_SOUNDTRACKS",
-  updateSoundtracks: "@UPDATE_SOUNDTRACKS",
-  deleteSoundtracks: "@DELETE_SOUNDTRACKS",
+  getAllRecordings: "@GET_ALL_RECORDINGS",
+  createRecording: "@CREATE_RECORDING",
+  updateRecording: "@UPDATE_RECORDING",
+  deleteRecording: "@DELETE_RECORDING",
+
+  failureRecordingCall: "@FAILURE_RECORDING_CALL",
 };

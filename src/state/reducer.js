@@ -10,19 +10,32 @@ const initialState = {
 
 export const RecorderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case Types.getAllSoundtracks:
-    case Types.updateSoundtracks:
-    case Types.deleteSoundtracks:
+    case Types.getAllRecordings:
       return {
         ...state,
         status: "success",
         list: action.payload,
       };
-    case Types.createSoundtracks:
+    case Types.createRecording:
       return {
         ...state,
-        status: "success",
-        list: [...state.list, action.payload],
+        status: "recording_created",
+      };
+    case Types.updateRecording:
+      return {
+        ...state,
+        status: "recording_updated",
+      };
+    case Types.deleteRecording:
+      return {
+        ...state,
+        status: "recording_deleted",
+      };
+    case Types.failureRecordingCall:
+      return {
+        ...state,
+        status: "failure",
+        error: Object.values(action.payload)[0],
       };
 
     default:

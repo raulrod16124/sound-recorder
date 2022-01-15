@@ -1,45 +1,35 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { DeleteSountracks, UpdateSountracks } from "../../state/actions";
+import { DeleteRecording, UpdateRecording } from "../../state/actions";
 import Recording from "../Recording";
 
-function RecordingsList({ recordings }) {
+function RecordingsList({ recordings, setRecordings }) {
   const dispatch = useDispatch();
 
   const editRecordingName = (e) => {
     let id = e.target.parentNode.parentNode.attributes.id.value;
-    let newRecordings = [...recordings];
-    let targetItem = recordings.filter((item) => {
-      if (item.id === id) {
-        return item;
-      }
-      return false;
-    });
-    let index = recordings.indexOf(targetItem[0]);
+    let targetItem = recordings.filter((item) => item.id === id);
     let newName =
       window.prompt("Enter a new name", targetItem[0].name) ??
       targetItem[0].name; // necessary because this returns null if the user doesn't enter anything
     targetItem[0].name = newName;
-    newRecordings.splice(index, 1, targetItem[0]);
-    dispatch(UpdateSountracks(newRecordings));
+    console.log(targetItem);
+    dispatch(UpdateRecording(targetItem[0].id, targetItem[0]));
   };
 
   const deleteRecording = (e) => {
     let id = e.target.parentNode.attributes.id.value;
+    // TODO - Change the window.confirm for a confirmation prompt modal
     let deleteRecording = window.confirm(
       "Are you sure you want to delete this recording?"
     );
     if (deleteRecording === true) {
-      let newRecordings = recordings.filter((item) => {
-        if (id !== item.id) {
-          return true;
-        }
-        return false;
-      });
+      let newRecordings = recordings.filter((item) => item.id !== id);
       e.target.parentNode.classList.add("vanish");
       setTimeout(() => {
-        dispatch(DeleteSountracks(newRecordings));
+        dispatch(DeleteRecording(id));
+        setRecordings(newRecordings);
       }, 900);
     }
   };
