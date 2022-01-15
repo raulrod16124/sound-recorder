@@ -25,9 +25,6 @@ const Recorder = ({ stream }) => {
   useEffect(() => {
     switch (RecorderState.status) {
       case "initial":
-      case "recording_created":
-      case "recording_updated":
-      case "recording_deleted":
         setFailureRecordings();
         return dispatch(GetAllRecordings());
       case "success":
@@ -37,9 +34,9 @@ const Recorder = ({ stream }) => {
       case "failure":
         return setFailureRecordings(RecorderState.error);
       default:
-        return setRecordings([]);
+        return setRecordings(RecorderState.list);
     }
-  }, [RecorderState.status]);
+  }, [RecorderState]);
 
   // TODO - #16 Refactoring the text according to the UI to implement
   const defaultRecordClass = "record-play";

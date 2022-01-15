@@ -32,8 +32,20 @@ export const CreateRecording = (recording) => {
         payload: newRecording.error,
       });
     } else {
+      const item = {
+        id: Object.values(
+          newRecording._document.data.value.mapValue.fields.id
+        )[0],
+        name: Object.values(
+          newRecording._document.data.value.mapValue.fields.name
+        )[0],
+        stream: Object.values(
+          newRecording._document.data.value.mapValue.fields.stream
+        )[0],
+      };
       dispatch({
         type: Types.createRecording,
+        payload: item,
       });
     }
   };
@@ -48,8 +60,21 @@ export const UpdateRecording = (recordingId, recording) => {
         payload: recordingUpdated.error,
       });
     } else {
+      const item = {
+        id: Object.values(
+          recordingUpdated._document.data.value.mapValue.fields.id
+        )[0],
+        name: Object.values(
+          recordingUpdated._document.data.value.mapValue.fields.name
+        )[0],
+        stream: Object.values(
+          recordingUpdated._document.data.value.mapValue.fields.stream
+        )[0],
+      };
+
       dispatch({
         type: Types.updateRecording,
+        payload: item,
       });
     }
   };
@@ -66,6 +91,7 @@ export const DeleteRecording = (recordingId) => {
     } else {
       dispatch({
         type: Types.deleteRecording,
+        payload: recordingId,
       });
     }
   };

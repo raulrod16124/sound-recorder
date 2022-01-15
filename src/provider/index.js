@@ -27,7 +27,9 @@ export const getAllRecordings = async () => {
 export const createNewRecording = async (newRecording) => {
   try {
     const recordingsCall = collection(db, "recordings");
-    return await addDoc(recordingsCall, newRecording);
+    const response = await addDoc(recordingsCall, newRecording);
+    const docRefRecordingCreated = doc(db, "recordings", response.id);
+    return await getDoc(docRefRecordingCreated);
   } catch (error) {
     console.log(error);
     return { error: error };
@@ -38,8 +40,7 @@ export const updateRecording = async (idRecordingToUpdate, data) => {
   try {
     const docRefToUpdate = doc(db, "recordings", idRecordingToUpdate);
     await setDoc(docRefToUpdate, data);
-    const recordingUpdated = await getDoc(docRefToUpdate);
-    return recordingUpdated;
+    return await getDoc(docRefToUpdate);
   } catch (error) {
     console.log(error);
     return { error: error };

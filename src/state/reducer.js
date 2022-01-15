@@ -20,16 +20,29 @@ export const RecorderReducer = (state = initialState, action) => {
       return {
         ...state,
         status: "recording_created",
+        list: [...state.list, action.payload],
       };
     case Types.updateRecording:
+      const updateList = state.list.map((recording) => {
+        if (recording.id === action.payload.id) {
+          return action.payload;
+        } else {
+          return recording;
+        }
+      });
       return {
         ...state,
         status: "recording_updated",
+        list: updateList,
       };
     case Types.deleteRecording:
+      const updateStateList = state.list.filter(
+        (recording) => recording.id !== action.payload
+      );
       return {
         ...state,
         status: "recording_deleted",
+        list: updateStateList,
       };
     case Types.failureRecordingCall:
       return {
