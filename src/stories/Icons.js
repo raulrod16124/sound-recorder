@@ -8,10 +8,6 @@ const Svg = styled.svg`
   display: flex;
   cursor: pointer;
 
-  /* vertical-align: middle;
-  shape-rendering: inherit;
-  transform: translate3d(0, 0, 0); */
-
   width: ${(props) => (props.size ? props.size : "4rem")};
   height: ${(props) => (props.size ? props.size : "4rem")};
 `;

@@ -15,21 +15,196 @@
     margin: 1rem auto;
   }
 
-  .icon-content {
-    position: relative;
-    width: 5rem;
-    height: 5rem;
-    border: 0.2rem solid $black;
+  .shadow-icon-content {
+    width: 6rem;
+    height: 6rem;
+    background-color: $primaryDeep;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
-    & svg {
-      padding-left: 0.2rem;
+    &.active {
+      background-color: rgba($color: $secondary, $alpha: 0.5);
+    }
+
+    .icon-content {
+      position: relative;
+      width: 80%;
+      height: 80%;
+      margin: 10% auto;
+      background-color: $primaryDeep;
+      box-shadow: inset -0.2rem 0.2rem 0.2rem $primary;
+      border: 0.2rem solid $black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.active {
+        background-color: $secondary;
+        box-shadow: inset -0.2rem 0.2rem 0.2rem $secondaryLight;
+      }
+
+      & svg {
+        padding-left: 0.3rem;
+      }
     }
   }
 }
+
+.content-audio-visualizer {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 5rem auto;
+
+  // .audio-bar {
+  //   --seek-before-width: "1rem";
+  //   --seek-before-color: $secondary;
+  //   position: relative;
+  //   -webkit-appearance: none;
+  //   background-color: $primaryDark;
+  //   height: 1rem;
+  //   display: flex;
+
+  //   &::-webkit-slider-thumb {
+  //     -webkit-appearance: none;
+  //     height: 1.5rem;
+  //     width: 1.5rem;
+  //     border-radius: 50%;
+  //     background-color: $secondary;
+  //     cursor: pointer;
+  //   }
+
+  //   &::before {
+  //     content: "";
+  //     height: 1rem;
+  //     width: var(--seek-before-width);
+  //     background-color: $secondary;
+  //     position: absolute;
+  //     top: 0;
+  //     left: 0;
+  //     z-index: 2;
+  //   }
+
+  //   &::after {
+  //     content: " ";
+  //     background-color: $primaryDark;
+  //     width: 50%;
+  //     height: 1rem;
+  //     z-index: 20;
+  //   }
+  // }
+
+  .time-content {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+// Testing progrees bar styles
+
+.audio-bar {
+  --seek-before-width: 0;
+  --seek-before-color: #ffc2a1;
+  --knobby: #3452a5;
+  --selectedKnobby: #26c9c3;
+
+  appearance: none;
+  background: $primaryDark;
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 11px;
+  outline: none;
+}
+
+/* progress bar - safari */
+.audio-bar::-webkit-slider-runnable-track {
+  background: $primaryDark;
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 11px;
+  outline: none;
+}
+
+/* progress bar - firefox */
+.audio-bar::-moz-range-track {
+  background: $primaryDark;
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 1rem;
+  outline: none;
+}
+
+.audio-bar::-moz-focus-outer {
+  border: 0;
+}
+
+/* progress bar - chrome and safari */
+.audio-bar::before {
+  content: "";
+  height: 11px;
+  width: var(--seek-before-width);
+  background-color: $secondary;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* progress bar - firefox */
+.audio-bar::-moz-range-progress {
+  background-color: $secondary;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  height: 11px;
+}
+
+/* knobby - chrome and safari */
+.audio-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  margin: -2px 0 0 0;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+/* knobby while dragging - chrome and safari */
+.audio-bar:active::-webkit-slider-thumb {
+  transform: scale(1.2);
+  background: var(--selectedKnobby);
+}
+
+/* knobby - firefox */
+.audio-bar::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: transparent;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+/* knobby while dragging - firefox */
+.audio-bar:active::-moz-range-thumb {
+  transform: scale(1.2);
+  background: var(--selectedKnobby);
+}
+
+// End testing progress bar styles
 
 .audio {
   grid-column: 1 / span 2;

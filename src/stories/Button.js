@@ -8,7 +8,7 @@ const Btn = styled.button`
   font-weight: 600;
   padding: 0.5rem 1rem;
   border: 0.2rem solid #111010;
-  border-radius: 1.5rem;
+  border-radius: 5rem;
   transition: all.3s ease-out;
 
   width: ${(props) => (props.width ? props.width : "auto")};
@@ -24,7 +24,7 @@ const Btn = styled.button`
   @media (max-width: 900px) {
     font-size: 1.2rem;
     padding: 1rem;
-    border-radius: 0.8rem;
+    border-radius: 5rem;
   }
 `;
 

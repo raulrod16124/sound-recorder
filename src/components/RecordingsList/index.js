@@ -1,6 +1,6 @@
 import "./styles.scss";
 
-import React, { useState } from "react";
+import React from "react";
 
 import Icon from "../../stories/Icons";
 
