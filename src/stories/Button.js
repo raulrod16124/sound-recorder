@@ -28,7 +28,14 @@ const Btn = styled.button`
   }
 `;
 
-export const Button = ({ label, primary, width, height, margin, ...props }) => {
+export default function Button({
+  label,
+  primary,
+  width,
+  height,
+  margin,
+  ...props
+}) {
   return (
     <Btn
       type="button"
@@ -40,7 +47,7 @@ export const Button = ({ label, primary, width, height, margin, ...props }) => {
       {label}
     </Btn>
   );
-};
+}
 
 Button.propTypes = {
   primary: PropTypes.bool,

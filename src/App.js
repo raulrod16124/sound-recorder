@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 
 import Recorder from "./components/Recorder";
 import store from "./store";
+import Icon from "./stories/Icons";
 
 function App() {
   const constraints = useMemo(() => {
@@ -67,7 +68,10 @@ function App() {
           <h1 className="title">Web Dictaphone</h1>
           <div className="settings">
             <h3 className="list-title">My list</h3>
-            <div className="icon-content"></div>
+            <div className="icon-content">
+              <Icon icon="settings" size="2rem" />
+              <div className="settings-cirlce"></div>
+            </div>
           </div>
         </header>
         <main className="main">{recoderRenderer()}</main>
