@@ -22,6 +22,7 @@ export const SettingsIcon = () => {
       <Icon icon="trash" size="5rem" />
       <Icon icon="send" size="5rem" />
       <Icon icon="settings" size="5rem" />
+      <Icon icon="edit" size="5rem" />
     </List>
   );
 };

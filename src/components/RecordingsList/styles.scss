@@ -13,10 +13,17 @@
     margin: 1rem auto;
     padding: 0.5rem;
     padding-left: 3rem;
+    padding-right: 1rem;
     border-radius: 1rem;
     color: $grey;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    .content-text-and-play-icon {
+      display: flex;
+      align-items: center;
+    }
 
     &.selected {
       padding-left: 1rem;

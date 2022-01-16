@@ -75,8 +75,8 @@ const Recorder = ({ stream }) => {
     }
   };
 
-  const editRecordingName = (e) => {
-    let id = e.target.parentNode.parentNode.attributes.id.value;
+  const editRecordingName = (id) => {
+    console.log(id);
     let targetItem = recordings.filter((item) => item.id === id);
     let newName =
       window.prompt("Enter a new name", targetItem[0].name) ??
@@ -86,8 +86,7 @@ const Recorder = ({ stream }) => {
     dispatch(UpdateRecording(targetItem[0].id, targetItem[0]));
   };
 
-  const deleteRecording = (e) => {
-    let id = e.target.parentNode.attributes.id.value;
+  const deleteRecording = (e, id) => {
     // TODO - Change the window.confirm for a confirmation prompt modal
     let deleteRecording = window.confirm(
       "Are you sure you want to delete this recording?"
@@ -111,6 +110,7 @@ const Recorder = ({ stream }) => {
           recordings={recordings}
           recordingSelected={recordingSelected}
           setRecordingSelected={setRecordingSelected}
+          onEditHandler={editRecordingName}
         />
       ) : (
         <p>{failureRecordings}</p>
@@ -135,11 +135,9 @@ const Recorder = ({ stream }) => {
       {recordingSelected ? (
         <Recording
           stream={recordingSelected.stream}
-          key={recordingSelected.id}
           name={recordingSelected.name}
           id={recordingSelected.id}
           onDeleteHandler={deleteRecording}
-          onEditNameHandler={editRecordingName}
         />
       ) : (
         <h3 className="no-recording">There no recordings</h3>

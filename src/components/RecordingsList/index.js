@@ -1,6 +1,6 @@
 import "./styles.scss";
 
-import React from "react";
+import React, { useState } from "react";
 
 import Icon from "../../stories/Icons";
 
@@ -8,6 +8,7 @@ function RecordingsList({
   recordings,
   recordingSelected,
   setRecordingSelected,
+  onEditHandler,
 }) {
   return (
     <div className="recording-name-list">
@@ -15,6 +16,7 @@ function RecordingsList({
         recordings.map((recording) => {
           return (
             <div
+              key={recording.id}
               className={
                 recording.id === recordingSelected.id
                   ? "recording-name selected"
@@ -22,10 +24,20 @@ function RecordingsList({
               }
               onClick={() => setRecordingSelected(recording)}
             >
+              <div className="content-text-and-play-icon">
+                {recordingSelected.id === recording.id && (
+                  <Icon icon="play" size="2rem" />
+                )}
+                <p className="text">{recording.name}</p>
+              </div>
               {recordingSelected.id === recording.id && (
-                <Icon icon="play" size="2rem" />
+                // TODO - fix the onClick edit trigger
+                <Icon
+                  icon="edit"
+                  size="2rem"
+                  onClick={() => onEditHandler(recording.id)}
+                />
               )}
-              <p className="text">{recording.name}</p>
             </div>
           );
         })
