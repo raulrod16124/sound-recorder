@@ -5,9 +5,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import useMediaRecorder from "../../hooks/useMediaRecorder";
-import { GetAllRecordings } from "../../state/actions";
+import {
+  DeleteRecording,
+  GetAllRecordings,
+  UpdateRecording,
+} from "../../state/actions";
 import Button from "../../stories/Button";
-import Icon from "../../stories/Icons";
+import Recording from "../Recording";
 import RecordingsList from "../RecordingsList";
 import Visualizer from "../Visualizer";
 
@@ -27,7 +31,7 @@ const Recorder = ({ stream }) => {
   // States to control the UI rendered
   const [buttonActive, setButtonActive] = useState(true);
 
-  const [recordingSelected, setRecordingSelected] = useState(true);
+  const [recordingSelected, setRecordingSelected] = useState({});
 
   useEffect(() => {
     switch (RecorderState.status) {
@@ -38,7 +42,7 @@ const Recorder = ({ stream }) => {
         setFailureRecordings();
         setRecordings(RecorderState.list);
         setRecordingSelected(
-          RecorderState.list.length > 0 && RecorderState.list[0].id
+          RecorderState.list.length > 0 && RecorderState.list[0]
         );
         return;
       case "failure":
@@ -71,50 +75,74 @@ const Recorder = ({ stream }) => {
     }
   };
 
+  const editRecordingName = (e) => {
+    let id = e.target.parentNode.parentNode.attributes.id.value;
+    let targetItem = recordings.filter((item) => item.id === id);
+    let newName =
+      window.prompt("Enter a new name", targetItem[0].name) ??
+      targetItem[0].name; // necessary because this returns null if the user doesn't enter anything
+    targetItem[0].name = newName;
+    console.log(targetItem);
+    dispatch(UpdateRecording(targetItem[0].id, targetItem[0]));
+  };
+
+  const deleteRecording = (e) => {
+    let id = e.target.parentNode.attributes.id.value;
+    // TODO - Change the window.confirm for a confirmation prompt modal
+    let deleteRecording = window.confirm(
+      "Are you sure you want to delete this recording?"
+    );
+    if (deleteRecording === true) {
+      let newRecordings = recordings.filter((item) => item.id !== id);
+      e.target.parentNode.classList.add("vanish");
+      setTimeout(() => {
+        dispatch(DeleteRecording(id));
+        setRecordings(newRecordings);
+        setRecordingSelected(recordings.length > 0 ? recordings[0] : "");
+      }, 900);
+    }
+  };
+
   return (
     <>
-      <div className="recording-name-list">
-        {recordings && recordings.length > 0 ? (
-          recordings.map((recording) => {
-            return (
-              <div
-                className={
-                  recording.id === recordingSelected
-                    ? "recording-name selected"
-                    : "recording-name"
-                }
-                onClick={() => setRecordingSelected(recording.id)}
-              >
-                {recordingSelected === recording.id && (
-                  <Icon icon="play" size="2rem" />
-                )}
-                <p className="text">{recording.name}</p>
-              </div>
-            );
-          })
-        ) : (
-          <p className="empty-list-text">There no recordings</p>
-        )}
+      {/* Implement Loading component */}
+      {!failureRecordings ? (
+        <RecordingsList
+          recordings={recordings}
+          recordingSelected={recordingSelected}
+          setRecordingSelected={setRecordingSelected}
+        />
+      ) : (
+        <p>{failureRecordings}</p>
+      )}
+      <div className="recording-section">
+        <Visualizer
+          stream={stream}
+          isRecording={isRecording}
+          barColor={[79, 230, 219]}
+        />
       </div>
-      <Visualizer
-        stream={stream}
-        isRecording={isRecording}
-        barColor={[18, 124, 85]}
-      />
       <Button
         primary={buttonActive}
         label={recordingStateText}
+        margin={"2rem auto"}
         onClick={() => {
           setButtonActive(!buttonActive);
           toggleRecording();
         }}
         className={recordButtonClassesText}
       />
-      {/* Implement Loading component */}
-      {!failureRecordings ? (
-        <RecordingsList recordings={recordings} setRecordings={setRecordings} />
+      {recordingSelected ? (
+        <Recording
+          stream={recordingSelected.stream}
+          key={recordingSelected.id}
+          name={recordingSelected.name}
+          id={recordingSelected.id}
+          onDeleteHandler={deleteRecording}
+          onEditNameHandler={editRecordingName}
+        />
       ) : (
-        <p>{failureRecordings}</p>
+        <h3 className="no-recording">There no recordings</h3>
       )}
     </>
   );

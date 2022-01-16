@@ -1,41 +1,17 @@
 @import "./../../index.scss";
 
-.recording-name-list {
+.recording-section {
   width: 90%;
-  height: 18rem;
+  height: 5rem;
   margin: 0 auto;
-  border-radius: 1rem;
-  background-color: $black;
-  overflow: auto;
+}
 
-  .recording-name {
-    width: 95%;
-    margin: 1rem auto;
-    padding: 0.5rem;
-    padding-left: 3rem;
-    border-radius: 1rem;
-    color: $grey;
-    display: flex;
-    align-items: center;
-
-    &.selected {
-      padding-left: 1rem;
-      background-color: $darkGrey;
-      color: $white;
-    }
-
-    .text {
-      font-size: 1.4rem;
-      text-transform: capitalize;
-    }
-  }
-
-  .empty-list-text {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: $white;
-  }
+.no-recording {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  margin-top: 5rem;
 }

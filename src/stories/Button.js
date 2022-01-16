@@ -42,6 +42,7 @@ export default function Button({
       primary={primary}
       width={width}
       height={height}
+      margin={margin}
       {...props}
     >
       {label}
