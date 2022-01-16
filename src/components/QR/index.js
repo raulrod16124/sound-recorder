@@ -1,3 +1,5 @@
+import "./styles.scss";
+
 import React from "react";
 
 function QR({ url }) {
@@ -5,7 +7,7 @@ function QR({ url }) {
     <div className="content-qr">
       <img
         className="qr-image"
-        src={"https://qrtag.net/api/qr_transparent_4.svg?url=" + url}
+        src={"https://qrtag.net/api/qr_4.svg?url=" + url}
         alt="qr-image"
       />
     </div>

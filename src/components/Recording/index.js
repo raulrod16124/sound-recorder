@@ -1,30 +1,29 @@
+import "react-h5-audio-player/src/styles.scss";
+
 import "./style.scss";
 
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import AudioPlayer from "react-h5-audio-player";
 
-import Button from "../../stories/Button";
 import Icon from "../../stories/Icons";
-import QR from "../QR";
 
-const Recording = ({ id, stream, onDeleteHandler }) => {
+const Recording = ({ id, stream, onDeleteHandler, qrState, setQrState }) => {
   // TODO - move to a hight level to listen a global click out of the component
-  const [qrVisibility, setQrVisibility] = useState(false);
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef();
-
+  // States
   const [iconsActive, setIconsActive] = useState({
     send: false,
     trash: false,
   });
 
+  // Class
   let className = require("classnames");
   let sendClass = className("icon-content qr-visibility", {
-    active: iconsActive.send,
+    active: qrState.visibility,
   });
   let shadowSendClass = className("shadow-icon-content", {
-    active: iconsActive.send,
+    active: qrState.visibility,
   });
   let trashClass = className("icon-content", {
     active: iconsActive.trash,
@@ -32,15 +31,6 @@ const Recording = ({ id, stream, onDeleteHandler }) => {
   let shadowTrashClass = className("shadow-icon-content", {
     active: iconsActive.trash,
   });
-
-  const handleToggleAudioPlayPause = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
 
   return (
     <>
@@ -50,14 +40,13 @@ const Recording = ({ id, stream, onDeleteHandler }) => {
             <div
               className={sendClass}
               onClick={() => {
-                setQrVisibility(!qrVisibility);
-                setIconsActive({ ...iconsActive, send: !iconsActive.send });
+                setQrState({ visibility: true, url: stream });
               }}
             >
               <Icon
                 icon="send"
                 size="3rem"
-                color={iconsActive.send ? "#373644" : "#28cac0"}
+                color={qrState.visibility ? "#373644" : "#28cac0"}
               />
             </div>
           </div>
@@ -77,37 +66,15 @@ const Recording = ({ id, stream, onDeleteHandler }) => {
             </div>
           </div>
         </div>
-
-        {/* <audio
-          ref={audioRef}
+        <AudioPlayer
           className="audio"
-          controls="controls"
-          preload="auto"
-          role="application"
-        >
-          <source src={stream} type="audio/mp3" />
-          <source
-            src="http://commondatastorage.googleapis.com/codeskulptor-assets/sounddogs/explosion.ogg"
-            type="audio/ogg"
-          />
-          Sorry, your browser doesn't support recording audio.
-        </audio> */}
-        <div className="content-audio-visualizer">
-          <input type="range" className="audio-bar" />
-          <div className="time-content">
-            <span className="current-time">00:00</span>
-            <span className="audio-time">00:00</span>
-          </div>
-          <Button
-            primary={!isPlaying}
-            label={isPlaying ? "Pause" : "Play"}
-            onClick={handleToggleAudioPlayPause}
-            margin="1rem auto"
-            width="30%"
-          />
-        </div>
+          src={stream}
+          autoPlayAfterSrcChange={false}
+          customAdditionalControls={[]}
+          showJumpControls={false}
+          customVolumeControls={[]}
+        />
       </article>
-      {qrVisibility && <QR url={stream} />}
     </>
   );
 };

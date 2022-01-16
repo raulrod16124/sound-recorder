@@ -1,6 +1,6 @@
 import "./style.scss";
 
-import PropTypes from "prop-types";
+import PropTypes, { object } from "prop-types";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,6 +11,7 @@ import {
   UpdateRecording,
 } from "../../state/actions";
 import Button from "../../stories/Button";
+import QR from "./../QR";
 import Recording from "../Recording";
 import RecordingsList from "../RecordingsList";
 import Visualizer from "../Visualizer";
@@ -32,6 +33,14 @@ const Recorder = ({ stream }) => {
   const [buttonActive, setButtonActive] = useState(true);
 
   const [recordingSelected, setRecordingSelected] = useState({});
+
+  const [qrVisibility, setQrVisibility] = useState(false);
+  const [qrUrl, setQrUrl] = useState(recordingSelected.stream);
+
+  const [qrState, setQrState] = useState({
+    visibility: false,
+    url: recordingSelected.stream,
+  });
 
   useEffect(() => {
     switch (RecorderState.status) {
@@ -102,8 +111,25 @@ const Recorder = ({ stream }) => {
     }
   };
 
+  const handleQRVisibility = (e) => {
+    const qrClassListener = [
+      "content-qr",
+      "qr-image",
+      "icon-content qr-visibility",
+      "shadow-icon-content",
+      "content-icons",
+    ];
+    if (
+      !qrClassListener.includes(e.target.className) &&
+      !e.target.className.baseVal
+    ) {
+      setQrState({ ...qrState, visibility: false });
+    }
+  };
+
   return (
-    <>
+    <div className="recorder" onClick={(e) => handleQRVisibility(e)}>
+      {qrState.visibility && <QR url={qrState.url} />}
       {/* Implement Loading component */}
       {!failureRecordings ? (
         <RecordingsList
@@ -138,11 +164,13 @@ const Recorder = ({ stream }) => {
           name={recordingSelected.name}
           id={recordingSelected.id}
           onDeleteHandler={deleteRecording}
+          qrState={qrState}
+          setQrState={setQrState}
         />
       ) : (
         <h3 className="no-recording">There no recordings</h3>
       )}
-    </>
+    </div>
   );
 };
 

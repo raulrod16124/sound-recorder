@@ -1,4 +1,5 @@
 @import "./../../index.scss";
+@import "react-h5-audio-player/src/styles.scss";
 
 .recording {
   display: grid;
@@ -50,169 +51,27 @@
   }
 }
 
-.content-audio-visualizer {
+.audio {
   display: flex;
-  flex-direction: column;
   width: 90%;
-  margin: 5rem auto;
+  margin: 2rem auto 0 auto;
+  border-radius: 1rem;
+  background-color: $primary;
+  color: $secondary;
 
-  // .audio-bar {
-  //   --seek-before-width: "1rem";
-  //   --seek-before-color: $secondary;
-  //   position: relative;
-  //   -webkit-appearance: none;
-  //   background-color: $primaryDark;
-  //   height: 1rem;
-  //   display: flex;
+  & div {
+    border: none;
+    color: $secondary;
+  }
 
-  //   &::-webkit-slider-thumb {
-  //     -webkit-appearance: none;
-  //     height: 1.5rem;
-  //     width: 1.5rem;
-  //     border-radius: 50%;
-  //     background-color: $secondary;
-  //     cursor: pointer;
-  //   }
-
-  //   &::before {
-  //     content: "";
-  //     height: 1rem;
-  //     width: var(--seek-before-width);
-  //     background-color: $secondary;
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //     z-index: 2;
-  //   }
-
-  //   &::after {
-  //     content: " ";
-  //     background-color: $primaryDark;
-  //     width: 50%;
-  //     height: 1rem;
-  //     z-index: 20;
-  //   }
-  // }
-
-  .time-content {
-    display: flex;
-    justify-content: space-between;
+  & svg {
+    color: $secondary;
   }
 }
 
-// Testing progrees bar styles
-
-.audio-bar {
-  --seek-before-width: 0;
-  --seek-before-color: #ffc2a1;
-  --knobby: #3452a5;
-  --selectedKnobby: #26c9c3;
-
-  appearance: none;
-  background: $primaryDark;
-  border-radius: 10px;
-  position: relative;
-  width: 100%;
-  height: 11px;
-  outline: none;
-}
-
-/* progress bar - safari */
-.audio-bar::-webkit-slider-runnable-track {
-  background: $primaryDark;
-  border-radius: 10px;
-  position: relative;
-  width: 100%;
-  height: 11px;
-  outline: none;
-}
-
-/* progress bar - firefox */
-.audio-bar::-moz-range-track {
-  background: $primaryDark;
-  border-radius: 10px;
-  position: relative;
-  width: 100%;
-  height: 1rem;
-  outline: none;
-}
-
-.audio-bar::-moz-focus-outer {
-  border: 0;
-}
-
-/* progress bar - chrome and safari */
-.audio-bar::before {
-  content: "";
-  height: 11px;
-  width: var(--seek-before-width);
-  background-color: $secondary;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  cursor: pointer;
-}
-
-/* progress bar - firefox */
-.audio-bar::-moz-range-progress {
-  background-color: $secondary;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  height: 11px;
-}
-
-/* knobby - chrome and safari */
-.audio-bar::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
+.rhap_container {
   border: none;
-  background-color: var(--knobby);
-  cursor: pointer;
-  position: relative;
-  margin: -2px 0 0 0;
-  z-index: 3;
-  box-sizing: border-box;
 }
-
-/* knobby while dragging - chrome and safari */
-.audio-bar:active::-webkit-slider-thumb {
-  transform: scale(1.2);
-  background: var(--selectedKnobby);
-}
-
-/* knobby - firefox */
-.audio-bar::-moz-range-thumb {
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  border: transparent;
-  background-color: var(--knobby);
-  cursor: pointer;
-  position: relative;
-  z-index: 3;
-  box-sizing: border-box;
-}
-
-/* knobby while dragging - firefox */
-.audio-bar:active::-moz-range-thumb {
-  transform: scale(1.2);
-  background: var(--selectedKnobby);
-}
-
-// End testing progress bar styles
-
-.audio {
-  grid-column: 1 / span 2;
-  height: 2rem;
-  width: 90%;
-  margin: 5rem auto 0 auto;
-}
-
 .vanish {
   animation: vanish 1s 1;
 }
