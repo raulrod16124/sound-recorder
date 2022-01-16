@@ -62,10 +62,16 @@ function App() {
 
   return (
     <Provider store={store}>
-      <header>
-        <h1>Sound Recorder</h1>
-      </header>
-      <main>{recoderRenderer()}</main>
+      <div className="app">
+        <header className="header">
+          <h1 className="title">Web Dictaphone</h1>
+          <div className="settings">
+            <h3 className="list-title">My list</h3>
+            <div className="icon-content"></div>
+          </div>
+        </header>
+        <main className="main">{recoderRenderer()}</main>
+      </div>
     </Provider>
   );
 }
