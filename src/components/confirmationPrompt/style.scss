@@ -22,6 +22,42 @@
     padding: 1rem 0;
   }
 
+  .content-input {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 0.5rem auto;
+
+    .label-name {
+      color: $secondary;
+      font-size: 1.4rem;
+      padding: 1rem 0;
+    }
+
+    .edit-input {
+      background: $secondaryDeep;
+      padding: 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      color: $white;
+
+      &:focus {
+        outline: none !important;
+        border: 0.1rem solid $secondary;
+      }
+    }
+  }
+
+  .error-message {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+    margin: 0 auto;
+    font-size: 1.4rem;
+    color: red;
+  }
   .content-buttons {
     width: 100%;
     display: flex;

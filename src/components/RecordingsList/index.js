@@ -8,7 +8,7 @@ function RecordingsList({
   recordings,
   recordingSelected,
   setRecordingSelected,
-  onEditHandler,
+  handleOpenConfirmationPrompt,
 }) {
   return (
     <div className="recording-name-list">
@@ -35,7 +35,13 @@ function RecordingsList({
                 <Icon
                   icon="edit"
                   size="2rem"
-                  onClick={() => onEditHandler(recording.id)}
+                  // onClick={() => onEditHandler(recording.id)}
+                  onClick={() =>
+                    handleOpenConfirmationPrompt(
+                      `Editing ${recordingSelected.name}`,
+                      "Update"
+                    )
+                  }
                 />
               )}
             </div>

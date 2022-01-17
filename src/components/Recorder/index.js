@@ -42,6 +42,7 @@ const Recorder = ({ stream }) => {
     visibility: false,
     message: "",
     acceptButton: "Accept",
+    erro: "",
   });
 
   // The UseEffect listen every change on the RecorderReducer status
@@ -92,30 +93,39 @@ const Recorder = ({ stream }) => {
     }
   };
 
-  const editRecordingName = (id) => {
-    console.log(id);
-    let targetItem = recordings.filter((item) => item.id === id);
-    let newName =
-      window.prompt("Enter a new name", targetItem[0].name) ??
-      targetItem[0].name; // necessary because this returns null if the user doesn't enter anything
-    targetItem[0].name = newName;
-    console.log(targetItem);
-    dispatch(UpdateRecording(targetItem[0].id, targetItem[0]));
+  const editRecordingName = (newName) => {
+    if (newName !== "") {
+      recordingSelected.name = newName;
+      dispatch(UpdateRecording(recordingSelected.id, recordingSelected));
+      setConfirmationPromptState({
+        ...confirmationPromptState,
+        visibility: false,
+      });
+    } else {
+      setConfirmationPromptState({
+        ...confirmationPromptState,
+        error: "the name is empty",
+      });
+      setTimeout(() => {
+        setConfirmationPromptState({
+          ...confirmationPromptState,
+          error: "",
+        });
+      }, 2000);
+    }
   };
 
   const deleteRecording = () => {
     let newRecordings = recordings.filter(
       (item) => item.id !== recordingSelected.id
     );
-    setTimeout(() => {
-      dispatch(DeleteRecording(recordingSelected.id));
-      setRecordings(newRecordings);
-      setRecordingSelected(recordings.length > 0 ? recordings[0] : "");
-      setConfirmationPromptState({
-        ...confirmationPromptState,
-        visibility: false,
-      });
-    }, 900);
+    dispatch(DeleteRecording(recordingSelected.id));
+    setRecordings(newRecordings);
+    setRecordingSelected(recordings.length > 0 ? recordings[0] : "");
+    setConfirmationPromptState({
+      ...confirmationPromptState,
+      visibility: false,
+    });
   };
 
   const handleOpenConfirmationPrompt = (message, buttonText) => {
@@ -161,7 +171,7 @@ const Recorder = ({ stream }) => {
           recordings={recordings}
           recordingSelected={recordingSelected}
           setRecordingSelected={setRecordingSelected}
-          onEditHandler={editRecordingName}
+          handleOpenConfirmationPrompt={handleOpenConfirmationPrompt}
         />
       ) : (
         <p>{failureRecordings}</p>

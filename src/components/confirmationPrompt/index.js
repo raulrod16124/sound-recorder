@@ -1,6 +1,6 @@
 import "./style.scss";
 
-import React from "react";
+import React, { useRef } from "react";
 
 import Button from "../../stories/Button";
 
@@ -12,9 +12,25 @@ function ConfirmationPrompt({
   confirmationPromptState,
   setConfirmationPromptState,
 }) {
+  const nameRef = useRef();
+
   return (
     <div className="confirmation-prompt">
       <p className="message">{message}</p>
+      {acceptButton === "Update" && (
+        <div className="content-input">
+          <label className="label-name">New name</label>
+          <input
+            ref={nameRef}
+            type="text"
+            className="edit-input"
+            placeholder="Write here the new name"
+          />
+        </div>
+      )}
+      {confirmationPromptState.error !== "" && (
+        <span className="error-message">{confirmationPromptState.error}</span>
+      )}
       <div className="content-buttons">
         <Button
           label="cancel"
@@ -28,8 +44,10 @@ function ConfirmationPrompt({
         <Button
           primary
           label={acceptButton}
-          onClick={
-            acceptButton === "Delete" ? deleteRecording : editRecordingName
+          onClick={() =>
+            acceptButton === "Delete"
+              ? deleteRecording()
+              : editRecordingName(nameRef.current.value)
           }
         />
       </div>
