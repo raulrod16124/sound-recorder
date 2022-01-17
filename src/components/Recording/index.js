@@ -3,20 +3,18 @@ import "react-h5-audio-player/src/styles.scss";
 import "./style.scss";
 
 import PropTypes from "prop-types";
-import { useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 
 import Icon from "../../stories/Icons";
 
-const Recording = ({ id, stream, onDeleteHandler, qrState, setQrState }) => {
-  // TODO - move to a hight level to listen a global click out of the component
-
-  // States
-  const [iconsActive, setIconsActive] = useState({
-    send: false,
-    trash: false,
-  });
-
+const Recording = ({
+  name,
+  stream,
+  handleOpenConfirmationPrompt,
+  confirmationPromptState,
+  qrState,
+  setQrState,
+}) => {
   // Class
   let className = require("classnames");
   let sendClass = className("icon-content qr-visibility", {
@@ -26,10 +24,10 @@ const Recording = ({ id, stream, onDeleteHandler, qrState, setQrState }) => {
     active: qrState.visibility,
   });
   let trashClass = className("icon-content", {
-    active: iconsActive.trash,
+    active: confirmationPromptState.visibility,
   });
   let shadowTrashClass = className("shadow-icon-content", {
-    active: iconsActive.trash,
+    active: confirmationPromptState.visibility,
   });
 
   return (
@@ -53,15 +51,19 @@ const Recording = ({ id, stream, onDeleteHandler, qrState, setQrState }) => {
           <div className={shadowTrashClass}>
             <div
               className={trashClass}
-              onClick={(e) => {
-                onDeleteHandler(e, id);
-                setIconsActive({ ...iconsActive, trash: !iconsActive.trash });
-              }}
+              onClick={() =>
+                handleOpenConfirmationPrompt(
+                  `Do you want to delete the recording ${name}?`,
+                  "Delete"
+                )
+              }
             >
               <Icon
                 icon="trash"
                 size="3rem"
-                color={iconsActive.trash ? "#373644" : "#28cac0"}
+                color={
+                  confirmationPromptState.visibility ? "#373644" : "#28cac0"
+                }
               />
             </div>
           </div>

@@ -1,0 +1,31 @@
+@import "./../../index.scss";
+
+.confirmation-prompt {
+  position: absolute;
+  top: 10rem;
+  left: 10%;
+  width: 80%;
+  height: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  background-color: $primaryDeep;
+  box-shadow: 0.5rem 0.5rem 0.8rem $black;
+  z-index: 25;
+
+  border: 1px solid;
+
+  .message {
+    text-align: center;
+    color: $secondaryLight;
+    padding: 1rem 0;
+  }
+
+  .content-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem auto;
+  }
+}

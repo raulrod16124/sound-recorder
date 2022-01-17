@@ -12,6 +12,7 @@ import {
 } from "../../state/actions";
 import Button from "../../stories/Button";
 import QR from "./../QR";
+import ConfirmationPrompt from "../confirmationPrompt";
 import Recording from "../Recording";
 import RecordingsList from "../RecordingsList";
 import Visualizer from "../Visualizer";
@@ -23,31 +24,37 @@ const Recorder = ({ stream }) => {
     return state.RecorderReducer;
   });
 
-  const [recordings, setRecordings] = useState([]);
-
   const { recorder, isRecording } = useMediaRecorder(stream);
-
+  // States
+  const [recordings, setRecordings] = useState([]);
   const [failureRecordings, setFailureRecordings] = useState();
-
-  // States to control the UI rendered
+  //  --  States to control the UI rendered
   const [buttonActive, setButtonActive] = useState(true);
 
   const [recordingSelected, setRecordingSelected] = useState({});
-
-  const [qrVisibility, setQrVisibility] = useState(false);
-  const [qrUrl, setQrUrl] = useState(recordingSelected.stream);
 
   const [qrState, setQrState] = useState({
     visibility: false,
     url: recordingSelected.stream,
   });
 
+  const [confirmationPromptState, setConfirmationPromptState] = useState({
+    visibility: false,
+    message: "",
+    acceptButton: "Accept",
+  });
+
+  // The UseEffect listen every change on the RecorderReducer status
   useEffect(() => {
     switch (RecorderState.status) {
       case "initial":
+        /* In the initial state we will require the list of recordings,
+        so here it trigger a getAll action*/
         setFailureRecordings();
         return dispatch(GetAllRecordings());
       case "success":
+        /* Once we get the recordings list we set it in a local state
+        and is assigned a recording selected */
         setFailureRecordings();
         setRecordings(RecorderState.list);
         setRecordingSelected(
@@ -61,6 +68,7 @@ const Recorder = ({ stream }) => {
     }
   }, [RecorderState]);
 
+  // Functions
   // TODO - #16 Refactoring the text according to the UI to implement
   const defaultRecordClass = "record-play";
   const recordButtonClassesText = useMemo(
@@ -95,20 +103,27 @@ const Recorder = ({ stream }) => {
     dispatch(UpdateRecording(targetItem[0].id, targetItem[0]));
   };
 
-  const deleteRecording = (e, id) => {
-    // TODO - Change the window.confirm for a confirmation prompt modal
-    let deleteRecording = window.confirm(
-      "Are you sure you want to delete this recording?"
+  const deleteRecording = () => {
+    let newRecordings = recordings.filter(
+      (item) => item.id !== recordingSelected.id
     );
-    if (deleteRecording === true) {
-      let newRecordings = recordings.filter((item) => item.id !== id);
-      e.target.parentNode.classList.add("vanish");
-      setTimeout(() => {
-        dispatch(DeleteRecording(id));
-        setRecordings(newRecordings);
-        setRecordingSelected(recordings.length > 0 ? recordings[0] : "");
-      }, 900);
-    }
+    setTimeout(() => {
+      dispatch(DeleteRecording(recordingSelected.id));
+      setRecordings(newRecordings);
+      setRecordingSelected(recordings.length > 0 ? recordings[0] : "");
+      setConfirmationPromptState({
+        ...confirmationPromptState,
+        visibility: false,
+      });
+    }, 900);
+  };
+
+  const handleOpenConfirmationPrompt = (message, buttonText) => {
+    setConfirmationPromptState({
+      visibility: true,
+      message: message,
+      acceptButton: buttonText,
+    });
   };
 
   const handleQRVisibility = (e) => {
@@ -129,6 +144,16 @@ const Recorder = ({ stream }) => {
 
   return (
     <div className="recorder" onClick={(e) => handleQRVisibility(e)}>
+      {confirmationPromptState.visibility && (
+        <ConfirmationPrompt
+          message={confirmationPromptState.message}
+          acceptButton={confirmationPromptState.acceptButton}
+          confirmationPromptState={confirmationPromptState}
+          setConfirmationPromptState={setConfirmationPromptState}
+          deleteRecording={deleteRecording}
+          editRecordingName={editRecordingName}
+        />
+      )}
       {qrState.visibility && <QR url={qrState.url} />}
       {/* Implement Loading component */}
       {!failureRecordings ? (
@@ -148,6 +173,7 @@ const Recorder = ({ stream }) => {
           barColor={[79, 230, 219]}
         />
       </div>
+      {/* TODO - Refactor this button to a Circle Button style */}
       <Button
         primary={buttonActive}
         label={recordingStateText}
@@ -163,9 +189,10 @@ const Recorder = ({ stream }) => {
           stream={recordingSelected.stream}
           name={recordingSelected.name}
           id={recordingSelected.id}
-          onDeleteHandler={deleteRecording}
           qrState={qrState}
           setQrState={setQrState}
+          confirmationPromptState={confirmationPromptState}
+          handleOpenConfirmationPrompt={handleOpenConfirmationPrompt}
         />
       ) : (
         <h3 className="no-recording">There no recordings</h3>
