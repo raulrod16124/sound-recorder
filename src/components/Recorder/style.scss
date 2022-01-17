@@ -2,20 +2,20 @@
 
 .recoder {
   position: relative;
-}
 
-.recording-section {
-  width: 90%;
-  height: 5rem;
-  margin: 0 auto;
-}
+  .rec-Bar {
+    width: 90%;
+    height: 5rem;
+    margin: 0 auto;
+  }
 
-.no-recording {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $white;
-  margin-top: 5rem;
+  .no-recording {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    margin-top: 5rem;
+  }
 }

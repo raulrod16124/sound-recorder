@@ -1,6 +1,6 @@
 import "./style.scss";
 
-import PropTypes, { object } from "prop-types";
+import PropTypes from "prop-types";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -151,7 +151,7 @@ const Recorder = ({ stream }) => {
       <Button
         primary={buttonActive}
         label={recordingStateText}
-        margin={"2rem auto"}
+        margin={buttonActive ? "2rem 41%" : "2rem 43%"}
         onClick={() => {
           setButtonActive(!buttonActive);
           toggleRecording();
