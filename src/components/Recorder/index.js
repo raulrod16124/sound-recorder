@@ -188,7 +188,7 @@ const Recorder = ({ stream }) => {
         <ReactMic
           record={isRecording}
           className="sound-wave"
-          onStop={(e) => console.log(e)}
+          // onStop={(e) => console.log(e)}
           strokeColor="#4fe6db"
           backgroundColor="#111010"
         />

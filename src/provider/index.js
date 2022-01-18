@@ -34,7 +34,7 @@ export const createNewRecording = async (newRecording) => {
     const docRefRecordingCreated = doc(db, "recordings", response.id);
     return await getDoc(docRefRecordingCreated);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return { error: error };
   }
 };
@@ -45,7 +45,7 @@ export const updateRecording = async (idRecordingToUpdate, data) => {
     await setDoc(docRefToUpdate, data);
     return await getDoc(docRefToUpdate);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return { error: error };
   }
 };
@@ -55,7 +55,7 @@ export const deleteRecording = async (idRecordingToDelete) => {
     const docRefToDelete = doc(db, "recordings", idRecordingToDelete);
     return await deleteDoc(docRefToDelete);
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return { error: error };
   }
 };
