@@ -10,6 +10,9 @@ import {
 
 import { db } from "../firebase";
 
+/* The provider take care of send the request to the firestore data base
+and do the CRUD of the recordings */
+
 export const getAllRecordings = async () => {
   try {
     const recordingsCall = collection(db, "recordings");

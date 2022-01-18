@@ -15,7 +15,8 @@ const Recording = ({
   qrState,
   setQrState,
 }) => {
-  // Class
+  /* Here is used the library className to manage the conditions
+  that control the styles that will be printer in the screen  */
   let className = require("classnames");
   let sendClass = className("icon-content qr-visibility", {
     active: qrState.visibility,

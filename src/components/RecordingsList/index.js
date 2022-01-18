@@ -10,6 +10,10 @@ function RecordingsList({
   setRecordingSelected,
   handleOpenConfirmationPrompt,
 }) {
+  /* The RecordingsList component is used to show the recordings name
+  and set the recordingSeleted on click in the name and use this recording
+  data to edit it, delete it or play it */
+
   return (
     <div className="recording-name-list">
       {recordings && recordings.length > 0 ? (
@@ -31,11 +35,9 @@ function RecordingsList({
                 <p className="text">{recording.name}</p>
               </div>
               {recordingSelected.id === recording.id && (
-                // TODO - fix the onClick edit trigger
                 <Icon
                   icon="edit"
                   size="2rem"
-                  // onClick={() => onEditHandler(recording.id)}
                   onClick={() =>
                     handleOpenConfirmationPrompt(
                       `Editing ${recordingSelected.name}`,

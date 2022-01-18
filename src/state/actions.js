@@ -6,9 +6,16 @@ import {
 } from "../provider";
 import { Types } from "./types";
 
+/* The actions take care of connecting the provider response with
+the reducer. In this case, is used the Thunk library trigger the 
+services calls, wait for the result and re-dispatch the action to 
+the reducer */
+
 export const GetAllRecordings = () => {
   return async (dispatch) => {
     const recordingsList = await getAllRecordings();
+
+    /* The error condition was created to manage the erros from the service */
     if (recordingsList.error) {
       dispatch({
         type: Types.failureRecordingCall,
@@ -32,6 +39,9 @@ export const CreateRecording = (recording) => {
         payload: newRecording.error,
       });
     } else {
+      /* Firestore returns de recordings data as hashmap with 
+      the keys named, so is used this structure to return the data
+      in the correct format that is used in the front */
       const item = {
         id: Object.values(
           newRecording._document.data.value.mapValue.fields.id

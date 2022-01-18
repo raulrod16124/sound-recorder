@@ -2,6 +2,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 
+/* The styled component is used to apply the 
+tag styles directly in the component and have access
+to manage the conditions arrived as a props */
+
 const Btn = styled.button`
   cursor: pointer;
   font-size: 1.6rem;

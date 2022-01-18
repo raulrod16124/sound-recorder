@@ -3,6 +3,9 @@ import "firebase/auth";
 import * as firebase from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
+/* The firebase document was created to initialize the firebase project.
+and the firebase credentials are store in a .env document to maintain data security */
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,

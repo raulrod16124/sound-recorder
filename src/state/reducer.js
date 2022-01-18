@@ -1,6 +1,10 @@
-// TODO - Define a soundtrack model
+// TODO - Define a recording model
 
 import { Types } from "./types";
+
+/* The initial state is created to manage the store state.
+So the frontend listen for every status change in the data cycle
+and trigger the relevant action  */
 
 const initialState = {
   status: "initial",

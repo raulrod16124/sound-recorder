@@ -42,6 +42,8 @@ export default function useMediaRecorder(stream) {
     const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
     const audioURL = window.URL.createObjectURL(blob);
 
+    /* Once it get the blob and transform to an audiURL are trigger the dispatch
+    to create a recording and store into the firestore  */
     dispatch(
       CreateRecording({
         stream: audioURL,

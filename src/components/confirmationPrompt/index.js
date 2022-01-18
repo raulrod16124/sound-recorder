@@ -15,6 +15,9 @@ function ConfirmationPrompt({
   // References
   const nameRef = useRef();
 
+  /* The ConfirmationPrompt component is used to manage the edit name feature
+  and to confirm a recording delete */
+
   return (
     <div className="confirmation-prompt">
       <p className="message">{message}</p>

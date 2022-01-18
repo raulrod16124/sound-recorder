@@ -25,12 +25,11 @@ const Recorder = ({ stream }) => {
   });
 
   const { recorder, isRecording } = useMediaRecorder(stream);
+
   // States
   const [recordings, setRecordings] = useState([]);
   const [failureRecordings, setFailureRecordings] = useState();
-  //  --  States to control the UI rendered
   const [buttonActive, setButtonActive] = useState(true);
-
   const [recordingSelected, setRecordingSelected] = useState({});
 
   const [qrState, setQrState] = useState({
