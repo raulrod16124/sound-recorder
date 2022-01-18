@@ -12,6 +12,7 @@ function ConfirmationPrompt({
   confirmationPromptState,
   setConfirmationPromptState,
 }) {
+  // References
   const nameRef = useRef();
 
   return (
@@ -37,7 +38,8 @@ function ConfirmationPrompt({
           onClick={() =>
             setConfirmationPromptState({
               ...confirmationPromptState,
-              visibility: false,
+              openEdit: false,
+              openDelete: false,
             })
           }
         />

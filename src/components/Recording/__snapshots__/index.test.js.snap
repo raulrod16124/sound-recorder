@@ -1,0 +1,336 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing the Recording Component should render the Recording component 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <article
+        class="recording"
+      >
+        <div
+          class="content-icons"
+        >
+          <div
+            class="shadow-icon-content"
+          >
+            <div
+              class="icon-content qr-visibility"
+            >
+              <svg
+                class="sc-bdvvtL kAkDOY"
+                viewBox="0 0 95 95"
+              >
+                <path
+                  class="sc-gsDKAQ iZbrEK"
+                  clip-rule="evenodd"
+                  d="M40 0C41.5151 0 42.9001 0.866708 43.5777 2.23878L79.5777 75.1386C80.2678 76.5361 80.1024 78.2108 79.1528 79.4423C78.2032 80.6738 76.6386 81.2423 75.1322 80.9034L40 72.9987L4.86775 80.9034C3.3614 81.2423 1.79684 80.6738 0.847208 79.4423C-0.102429 78.2108 -0.267771 76.5361 0.422321 75.1386L36.4223 2.23878C37.0999 0.866708 38.4849 0 40 0ZM44 65.6011L68.6639 71.1505L44 21.206V65.6011ZM36 21.206L11.3361 71.1505L36 65.6011V21.206Z"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  style="color: rgb(40, 202, 192);"
+                />
+              </svg>
+            </div>
+          </div>
+          <div
+            class="shadow-icon-content"
+          >
+            <div
+              class="icon-content"
+            >
+              <svg
+                class="sc-bdvvtL kAkDOY"
+                viewBox="0 0 95 95"
+              >
+                <path
+                  class="sc-gsDKAQ iZbrEK"
+                  clip-rule="evenodd"
+                  d="M21 8.4C21 3.76081 24.7608 0 29.4 0H54.6C59.2392 0 63 3.76081 63 8.4V16.8H71.3567C71.3826 16.7998 71.4086 16.7998 71.4347 16.8H79.8C82.1196 16.8 84 18.6804 84 21C84 23.3196 82.1196 25.2 79.8 25.2H75.3107L71.668 76.1985C71.354 80.5942 67.6963 84 63.2893 84H20.7107C16.3037 84 12.646 80.5942 12.332 76.1985L8.6893 25.2H4.2C1.8804 25.2 0 23.3196 0 21C0 18.6804 1.8804 16.8 4.2 16.8H12.5653C12.5914 16.7998 12.6174 16.7998 12.6433 16.8H21V8.4ZM29.4 16.8H54.6V8.4H29.4V16.8ZM17.1107 25.2L20.7107 75.6H63.2893L66.8893 25.2H17.1107Z"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  style="color: rgb(40, 202, 192);"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-label="Audio player"
+          class="rhap_container rhap_loop--off rhap_play-status--paused audio"
+          role="group"
+          tabindex="0"
+        >
+          <audio
+            preload="auto"
+            src="sdkfjsdf08sdf"
+          />
+          <div
+            class="rhap_main rhap_stacked"
+          >
+            <div
+              class="rhap_progress-section"
+            >
+              <div
+                class="rhap_time rhap_current-time"
+                id="rhap_current-time"
+              >
+                --:--
+              </div>
+              <div
+                aria-label="Audio progress control"
+                aria-valuemax="100"
+                aria-valuemin="0"
+                aria-valuenow="0"
+                class="rhap_progress-container"
+                role="progressbar"
+                tabindex="0"
+              >
+                <div
+                  class="rhap_progress-bar rhap_progress-bar-show-download"
+                >
+                  <div
+                    class="rhap_progress-indicator"
+                    style="left: 0%;"
+                  />
+                  <div
+                    class="rhap_progress-filled"
+                    style="width: 0%;"
+                  />
+                </div>
+              </div>
+              <div
+                class="rhap_time rhap_total-time"
+              >
+                --:--
+              </div>
+            </div>
+            <div
+              class="rhap_controls-section"
+            >
+              <div
+                class="rhap_additional-controls"
+              />
+              <div
+                class="rhap_main-controls"
+              >
+                <button
+                  aria-label="Play"
+                  class="rhap_button-clear rhap_main-controls-button rhap_play-pause-button"
+                  type="button"
+                >
+                  <svg
+                    focusable="false"
+                    height="1em"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="transform: rotate(360deg);"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 16.5v-9l6 4.5M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div
+                class="rhap_volume-controls"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </body>,
+  "container": <div>
+    <article
+      class="recording"
+    >
+      <div
+        class="content-icons"
+      >
+        <div
+          class="shadow-icon-content"
+        >
+          <div
+            class="icon-content qr-visibility"
+          >
+            <svg
+              class="sc-bdvvtL kAkDOY"
+              viewBox="0 0 95 95"
+            >
+              <path
+                class="sc-gsDKAQ iZbrEK"
+                clip-rule="evenodd"
+                d="M40 0C41.5151 0 42.9001 0.866708 43.5777 2.23878L79.5777 75.1386C80.2678 76.5361 80.1024 78.2108 79.1528 79.4423C78.2032 80.6738 76.6386 81.2423 75.1322 80.9034L40 72.9987L4.86775 80.9034C3.3614 81.2423 1.79684 80.6738 0.847208 79.4423C-0.102429 78.2108 -0.267771 76.5361 0.422321 75.1386L36.4223 2.23878C37.0999 0.866708 38.4849 0 40 0ZM44 65.6011L68.6639 71.1505L44 21.206V65.6011ZM36 21.206L11.3361 71.1505L36 65.6011V21.206Z"
+                fill-rule="evenodd"
+                stroke-linecap="round"
+                style="color: rgb(40, 202, 192);"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          class="shadow-icon-content"
+        >
+          <div
+            class="icon-content"
+          >
+            <svg
+              class="sc-bdvvtL kAkDOY"
+              viewBox="0 0 95 95"
+            >
+              <path
+                class="sc-gsDKAQ iZbrEK"
+                clip-rule="evenodd"
+                d="M21 8.4C21 3.76081 24.7608 0 29.4 0H54.6C59.2392 0 63 3.76081 63 8.4V16.8H71.3567C71.3826 16.7998 71.4086 16.7998 71.4347 16.8H79.8C82.1196 16.8 84 18.6804 84 21C84 23.3196 82.1196 25.2 79.8 25.2H75.3107L71.668 76.1985C71.354 80.5942 67.6963 84 63.2893 84H20.7107C16.3037 84 12.646 80.5942 12.332 76.1985L8.6893 25.2H4.2C1.8804 25.2 0 23.3196 0 21C0 18.6804 1.8804 16.8 4.2 16.8H12.5653C12.5914 16.7998 12.6174 16.7998 12.6433 16.8H21V8.4ZM29.4 16.8H54.6V8.4H29.4V16.8ZM17.1107 25.2L20.7107 75.6H63.2893L66.8893 25.2H17.1107Z"
+                fill-rule="evenodd"
+                stroke-linecap="round"
+                style="color: rgb(40, 202, 192);"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        aria-label="Audio player"
+        class="rhap_container rhap_loop--off rhap_play-status--paused audio"
+        role="group"
+        tabindex="0"
+      >
+        <audio
+          preload="auto"
+          src="sdkfjsdf08sdf"
+        />
+        <div
+          class="rhap_main rhap_stacked"
+        >
+          <div
+            class="rhap_progress-section"
+          >
+            <div
+              class="rhap_time rhap_current-time"
+              id="rhap_current-time"
+            >
+              --:--
+            </div>
+            <div
+              aria-label="Audio progress control"
+              aria-valuemax="100"
+              aria-valuemin="0"
+              aria-valuenow="0"
+              class="rhap_progress-container"
+              role="progressbar"
+              tabindex="0"
+            >
+              <div
+                class="rhap_progress-bar rhap_progress-bar-show-download"
+              >
+                <div
+                  class="rhap_progress-indicator"
+                  style="left: 0%;"
+                />
+                <div
+                  class="rhap_progress-filled"
+                  style="width: 0%;"
+                />
+              </div>
+            </div>
+            <div
+              class="rhap_time rhap_total-time"
+            >
+              --:--
+            </div>
+          </div>
+          <div
+            class="rhap_controls-section"
+          >
+            <div
+              class="rhap_additional-controls"
+            />
+            <div
+              class="rhap_main-controls"
+            >
+              <button
+                aria-label="Play"
+                class="rhap_button-clear rhap_main-controls-button rhap_play-pause-button"
+                type="button"
+              >
+                <svg
+                  focusable="false"
+                  height="1em"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="transform: rotate(360deg);"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 16.5v-9l6 4.5M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="rhap_volume-controls"
+            />
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

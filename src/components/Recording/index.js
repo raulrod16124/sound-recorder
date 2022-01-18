@@ -24,10 +24,10 @@ const Recording = ({
     active: qrState.visibility,
   });
   let trashClass = className("icon-content", {
-    active: confirmationPromptState.visibility,
+    active: confirmationPromptState.openDelete,
   });
   let shadowTrashClass = className("shadow-icon-content", {
-    active: confirmationPromptState.visibility,
+    active: confirmationPromptState.openDelete,
   });
 
   return (
@@ -62,7 +62,7 @@ const Recording = ({
                 icon="trash"
                 size="3rem"
                 color={
-                  confirmationPromptState.visibility ? "#373644" : "#28cac0"
+                  confirmationPromptState.openDelete ? "#373644" : "#28cac0"
                 }
               />
             </div>

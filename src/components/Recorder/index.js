@@ -39,7 +39,8 @@ const Recorder = ({ stream }) => {
   });
 
   const [confirmationPromptState, setConfirmationPromptState] = useState({
-    visibility: false,
+    openEdit: false,
+    openDelete: false,
     message: "",
     acceptButton: "Accept",
     error: "",
@@ -99,7 +100,7 @@ const Recorder = ({ stream }) => {
       dispatch(UpdateRecording(recordingSelected.id, recordingSelected));
       setConfirmationPromptState({
         ...confirmationPromptState,
-        visibility: false,
+        openEdit: false,
       });
     } else {
       setConfirmationPromptState({
@@ -127,7 +128,7 @@ const Recorder = ({ stream }) => {
     setRecordingSelected(recordings.length > 0 ? recordings[0] : "");
     setConfirmationPromptState({
       ...confirmationPromptState,
-      visibility: false,
+      openDelete: false,
     });
   };
 
@@ -135,7 +136,8 @@ const Recorder = ({ stream }) => {
   delete or edit. */
   const handleOpenConfirmationPrompt = (message, buttonText) => {
     setConfirmationPromptState({
-      visibility: true,
+      openEdit: buttonText === "Update",
+      openDelete: buttonText === "Delete",
       message: message,
       acceptButton: buttonText,
     });
@@ -160,7 +162,8 @@ const Recorder = ({ stream }) => {
 
   return (
     <div className="recorder" onClick={(e) => handleQRVisibility(e)}>
-      {confirmationPromptState.visibility && (
+      {(confirmationPromptState.openEdit ||
+        confirmationPromptState.openDelete) && (
         <ConfirmationPrompt
           message={confirmationPromptState.message}
           acceptButton={confirmationPromptState.acceptButton}
