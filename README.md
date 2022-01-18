@@ -43,3 +43,19 @@ Different tools were used to develop this project as:
 - [Firebase](https://firebase.google.com/) to store the recordings of the application. In this case you should add the credentials of your own firebase project to be able to have firebase to save your recordings.
 
 If you want to work with your firebase project, you need to create a `.env` document out of the src folder where store your firebase credentials.
+
+## Libraries used
+
+- [redux-thunk](https://www.npmjs.com/package/redux-thunk).
+
+- [sass](https://www.npmjs.com/package/sass).
+
+- [react-mic](https://www.npmjs.com/package/react-mic).
+
+- [react-h5-audio-player](https://www.npmjs.com/package/react-h5-audio-player).
+
+- [storybook](https://storybook.js.org/).
+
+- [styles-components](https://www.npmjs.com/package/styled-components).
+
+- [classnames](https://www.npmjs.com/package/classnames).
