@@ -25,3 +25,12 @@ Secondary.args = {
   primary: false,
   label: "Button",
 };
+
+export const CircleButton = Template.bind({});
+CircleButton.args = {
+  primary: false,
+  label: "Button",
+  circle: true,
+  height: "10rem",
+  width: "10rem",
+};

@@ -197,7 +197,10 @@ const Recorder = ({ stream }) => {
       <Button
         primary={buttonActive}
         label={recordingStateText}
-        margin={buttonActive ? "2rem 41%" : "2rem 43%"}
+        margin={buttonActive ? "1rem 40% 0 40%" : "1rem 40% 0 40%"}
+        circle
+        height="10rem"
+        width="10rem"
         onClick={() => {
           setButtonActive(!buttonActive);
           toggleRecording();

@@ -11,8 +11,8 @@ const Btn = styled.button`
   font-size: 1.6rem;
   font-weight: 600;
   padding: 0.5rem 1rem;
-  border: 0.2rem solid #111010;
-  border-radius: 5rem;
+  border: ${(props) => (props.circle ? "0.8rem" : "0.2rem")} solid #111010;
+  border-radius: ${(props) => (props.circle ? "50%" : "5rem")};
   transition: all.3s ease-out;
 
   width: ${(props) => (props.width ? props.width : "auto")};
@@ -28,7 +28,6 @@ const Btn = styled.button`
   @media (max-width: 900px) {
     font-size: 1.2rem;
     padding: 1rem;
-    border-radius: 5rem;
   }
 `;
 
@@ -38,6 +37,7 @@ export default function Button({
   width,
   height,
   margin,
+  circle,
   ...props
 }) {
   return (
@@ -47,6 +47,7 @@ export default function Button({
       width={width}
       height={height}
       margin={margin}
+      circle={circle}
       {...props}
     >
       {label}
