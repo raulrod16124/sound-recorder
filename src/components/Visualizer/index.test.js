@@ -1,6 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Visualizer from './index'
+import React from "react";
+import ReactDOM from "react-dom";
+
+import Visualizer from "./index";
 
 /**
  * We need to mock the getUserMedia function
@@ -8,8 +9,7 @@ import Visualizer from './index'
  * https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
  */
 
-it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<Visualizer />, div);
-})
-
+it("renders without crashing", () => {
+  const div = document.createElement("div");
+  ReactDOM.render(<Visualizer />, div);
+});

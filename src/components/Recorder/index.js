@@ -2,6 +2,7 @@ import "./style.scss";
 
 import PropTypes from "prop-types";
 import { useEffect, useMemo, useState } from "react";
+import { ReactMic } from "react-mic";
 import { useDispatch, useSelector } from "react-redux";
 
 import useMediaRecorder from "../../hooks/useMediaRecorder";
@@ -15,7 +16,6 @@ import QR from "./../QR";
 import ConfirmationPrompt from "../confirmationPrompt";
 import Recording from "../Recording";
 import RecordingsList from "../RecordingsList";
-import Visualizer from "../Visualizer";
 
 const Recorder = ({ stream }) => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const Recorder = ({ stream }) => {
     visibility: false,
     message: "",
     acceptButton: "Accept",
-    erro: "",
+    error: "",
   });
 
   // The UseEffect listen every change on the RecorderReducer status
@@ -70,7 +70,6 @@ const Recorder = ({ stream }) => {
   }, [RecorderState]);
 
   // Functions
-  // TODO - #16 Refactoring the text according to the UI to implement
   const defaultRecordClass = "record-play";
   const recordButtonClassesText = useMemo(
     () =>
@@ -85,7 +84,6 @@ const Recorder = ({ stream }) => {
   );
 
   const toggleRecording = () => {
-    // TODO - Check the error on the second click
     if (!isRecording) {
       recorder.start(1000);
     } else {
@@ -93,6 +91,8 @@ const Recorder = ({ stream }) => {
     }
   };
 
+  /* Function that after to end the confirmation prompt process check if the new name is empty,
+  and if is not, then trigger the dispatch to update de recording in the data base. */
   const editRecordingName = (newName) => {
     if (newName !== "") {
       recordingSelected.name = newName;
@@ -115,6 +115,9 @@ const Recorder = ({ stream }) => {
     }
   };
 
+  /* Function that after to end the confirmation prompt process get the recordingSelected.id
+  and delete this reference into the recordings states and trigger the dispatch to delete it 
+  in the data base too.*/
   const deleteRecording = () => {
     let newRecordings = recordings.filter(
       (item) => item.id !== recordingSelected.id
@@ -128,6 +131,8 @@ const Recorder = ({ stream }) => {
     });
   };
 
+  /* Function use it to trigger a pop-up where the user have to confirm the action
+  delete or edit. */
   const handleOpenConfirmationPrompt = (message, buttonText) => {
     setConfirmationPromptState({
       visibility: true,
@@ -136,6 +141,7 @@ const Recorder = ({ stream }) => {
     });
   };
 
+  /* Function that close the QR pop-up on click in the DOM. */
   const handleQRVisibility = (e) => {
     const qrClassListener = [
       "content-qr",
@@ -177,10 +183,12 @@ const Recorder = ({ stream }) => {
         <p>{failureRecordings}</p>
       )}
       <div className="recording-section">
-        <Visualizer
-          stream={stream}
-          isRecording={isRecording}
-          barColor={[79, 230, 219]}
+        <ReactMic
+          record={isRecording}
+          className="sound-wave"
+          onStop={(e) => console.log(e)}
+          strokeColor="#4fe6db"
+          backgroundColor="#111010"
         />
       </div>
       {/* TODO - Refactor this button to a Circle Button style */}
