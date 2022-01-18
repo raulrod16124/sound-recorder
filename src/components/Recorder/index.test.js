@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
-import {fireEvent, render, screen} from '@testing-library/react'
-import Recorder from './index'
-import useMediaRecorder from "../../hooks/useMediaRecorder";
+import { fireEvent, render, screen } from "@testing-library/react";
+import React, { useState } from "react";
+import { Provider } from "react-redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import thunk from "redux-thunk";
 
-jest.mock('../../hooks/useMediaRecorder')
+import useMediaRecorder from "../../hooks/useMediaRecorder";
+import { RecorderReducer } from "../../state/reducer";
+import Recorder from "./index";
+
+jest.mock("../../hooks/useMediaRecorder");
 
 /**
  * Following the Object mother pattern we have this small fn that generates a valid object
@@ -14,13 +19,13 @@ jest.mock('../../hooks/useMediaRecorder')
  */
 function createMockRecording({
   idNumber = Math.floor(Math.random() * 100),
-  name = new Date().toISOString().split('.')[0].split('T').join(' ')
+  name = new Date().toISOString().split(".")[0].split("T").join(" "),
 }) {
   return {
     stream: "audioUrl",
     name,
-    id: `id${idNumber}`
-  }
+    id: `id${idNumber}`,
+  };
 }
 
 /**
@@ -32,7 +37,7 @@ function createMockRecording({
  */
 function createMockRecordingList(length = 10) {
   const emptyList = new Array(length).fill(null);
-  return emptyList.map(() => createMockRecording({}))
+  return emptyList.map(() => createMockRecording({}));
 }
 
 /**
@@ -56,123 +61,154 @@ function createMockRecordingList(length = 10) {
  */
 const mockUseMediaRecorder = (defaultRecordings = []) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [isRecording, setIsRecording] = useState(false)
+  const [isRecording, setIsRecording] = useState(false);
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [recordings, setRecordings] = useState(defaultRecordings)
+  const [recordings, setRecordings] = useState(defaultRecordings);
 
   const recorder = {
     start: () => setIsRecording(true),
     stop: () => {
-      setRecordings(currentList => [...currentList, createMockRecording({ idNumber: currentList.length })])
-      setIsRecording(false)
+      setRecordings((currentList) => [
+        ...currentList,
+        createMockRecording({ idNumber: currentList.length }),
+      ]);
+      setIsRecording(false);
     },
   };
 
-  return {recorder, recordings, setRecordings, isRecording}
+  return { recorder, recordings, setRecordings, isRecording };
 };
 
-describe('With an empty list of recordings', () => {
+describe("With an empty list of recordings", () => {
+  let mockStore;
   beforeEach(() => {
+    const reducer = combineReducers({
+      RecorderReducer: RecorderReducer,
+    });
+    mockStore = createStore(reducer, applyMiddleware(thunk));
     useMediaRecorder.mockImplementation(() => mockUseMediaRecorder());
-    render(<Recorder stream={{}}/>);
+    render(
+      <Provider store={mockStore}>
+        <Recorder stream={{}} />
+      </Provider>
+    );
   });
 
-  it('renders without crashing', () => {
-    const button = screen.getByRole("button", {name: 'Record'});
+  it("renders without crashing", () => {
+    const button = screen.getByRole("button", { name: "Record" });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('record-play')
+    expect(button).toHaveClass("record-play");
   });
 
-  it('user can start a recording pressing the button', () => {
-    const button = screen.getByRole("button", { name: 'Record' })
-    expect(button).toHaveClass('record-play')
-    fireEvent.click(button)
+  it("user can start a recording pressing the button", () => {
+    const button = screen.getByRole("button", { name: "Record" });
+    expect(button).toHaveClass("record-play");
+    fireEvent.click(button);
     expect(button).toHaveTextContent(/stop/i);
   });
 
-  it('record button turns red while recording', () => {
+  it("record button turns red while recording", () => {
     const button = screen.getByRole("button", { name: /record/i });
-    expect(button).toHaveClass('record-play')
-    fireEvent.click(button)
-    expect(button).toHaveClass('record-play', 'recording-audio')
-  })
+    expect(button).toHaveClass("record-play");
+    fireEvent.click(button);
+    expect(button).toHaveClass("record-play", "recording-audio");
+  });
 
-  it('adds a new recording to the list when the user clicks stop', () => {
-    const button = screen.getByRole("button", { name: 'Record' })
-    fireEvent.click(button)
-    expect(button).toHaveTextContent(/stop/i)
-    fireEvent.click(button)
-    expect(button).toHaveTextContent(/record/i)
-    const recordings = screen.getAllByTitle(/click to edit name/i)
-    expect(recordings).toHaveLength(1)
-  })
-})
+  it("adds a new recording to the list when the user clicks stop", () => {
+    const button = screen.getByRole("button", { name: "Record" });
+    fireEvent.click(button);
+    expect(button).toHaveTextContent(/stop/i);
+    fireEvent.click(button);
+    expect(button).toHaveTextContent(/record/i);
+    const recordings = screen.getAllByTitle(/click to edit name/i);
+    expect(recordings).toHaveLength(1);
+  });
+});
 
-describe('With a list of recordings', () => {
-  const recordingsList = createMockRecordingList()
+describe("With a list of recordings", () => {
+  const recordingsList = createMockRecordingList();
 
-  const originalPrompt = global.prompt
-  const originalConfirm = global.confirm
-  const mockPrompt = jest.fn()
-  const mockConfirm = jest.fn()
+  const originalPrompt = global.prompt;
+  const originalConfirm = global.confirm;
+  const mockPrompt = jest.fn();
+  const mockConfirm = jest.fn();
+  let mockStore;
 
   beforeAll(() => {
-    global.prompt = mockPrompt
-    global.confirm = mockConfirm
-  })
+    global.prompt = mockPrompt;
+    global.confirm = mockConfirm;
+  });
 
   beforeEach(() => {
-    useMediaRecorder.mockImplementation(() => mockUseMediaRecorder(recordingsList))
-    mockPrompt.mockReturnValue("new recording name")
-    mockConfirm.mockReturnValue(true)
+    useMediaRecorder.mockImplementation(() =>
+      mockUseMediaRecorder(recordingsList)
+    );
+    mockPrompt.mockReturnValue("new recording name");
+    mockConfirm.mockReturnValue(true);
 
-    render(<Recorder stream={{}} />)
-  })
+    const reducer = combineReducers({
+      RecorderReducer: RecorderReducer,
+    });
+    mockStore = createStore(reducer, applyMiddleware(thunk));
+    render(
+      <Provider store={mockStore}>
+        <Recorder stream={{}} />
+      </Provider>
+    );
+  });
 
   afterAll(() => {
-    global.prompt = originalPrompt
-    global.confirm = originalConfirm
-  })
+    global.prompt = originalPrompt;
+    global.confirm = originalConfirm;
+  });
 
-  it('renders all of the recordings on screen', () => {
-    const recordings = screen.getAllByRole("button", { name: /click to edit name/i })
-    expect(recordings).toHaveLength(recordingsList.length)
-  })
+  it("renders all of the recordings on screen", () => {
+    const recordings = screen.getAllByRole("button", {
+      name: /click to edit name/i,
+    });
+    expect(recordings).toHaveLength(recordingsList.length);
+  });
 
-  it('a new recording can be created', () => {
-    const recordings = screen.getAllByRole("button", { name: /click to edit name/i })
-    expect(recordings).toHaveLength(recordingsList.length)
+  it("a new recording can be created", () => {
+    const recordings = screen.getAllByRole("button", {
+      name: /click to edit name/i,
+    });
+    expect(recordings).toHaveLength(recordingsList.length);
 
-    const button = screen.getByRole("button", { name: /record/i })
-    fireEvent.click(button)
-    expect(button).toHaveTextContent(/stop/i)
-    fireEvent.click(button)
-    expect(button).toHaveTextContent(/record/i)
+    const button = screen.getByRole("button", { name: /record/i });
+    fireEvent.click(button);
+    expect(button).toHaveTextContent(/stop/i);
+    fireEvent.click(button);
+    expect(button).toHaveTextContent(/record/i);
 
-    const newRecordings = screen.getAllByTitle(/click to edit name/i)
-    expect(newRecordings).toHaveLength(recordings.length + 1)
-  })
+    const newRecordings = screen.getAllByTitle(/click to edit name/i);
+    expect(newRecordings).toHaveLength(recordings.length + 1);
+  });
 
-  it('a recording can be renamed', async () => {
-    const recordings = screen.getAllByRole("button", { name: /click to edit name/i })
+  it("a recording can be renamed", async () => {
+    const recordings = screen.getAllByRole("button", {
+      name: /click to edit name/i,
+    });
     const firstEditButton = recordings[0];
 
     fireEvent.click(firstEditButton);
-    expect(mockPrompt).toHaveBeenCalledTimes(1)
+    expect(mockPrompt).toHaveBeenCalledTimes(1);
 
     const updatedRecording = await screen.findByText(/new recording name/i);
-    expect(updatedRecording).toBeInTheDocument()
-  })
+    expect(updatedRecording).toBeInTheDocument();
+  });
 
-  it('a recording can be deleted', () => {
-    const recordings = screen.getAllByRole("button", { name: /delete/i })
-    expect(recordings).toHaveLength(recordingsList.length)
+  it("a recording can be deleted", () => {
+    const recordings = screen.getAllByRole("button", { name: /delete/i });
+    expect(recordings).toHaveLength(recordingsList.length);
     fireEvent.click(recordings[0]);
 
-    const updatedRecordingsWrapper = screen.queryAllByRole("article")
-    expect(mockConfirm).toHaveBeenCalledTimes(1)
-    expect(mockConfirm).toHaveBeenCalledWith("Are you sure you want to delete this recording?")
-    expect(mockConfirm).toHaveReturned()
-    expect(updatedRecordingsWrapper[0]).toHaveClass('vanish')
-  })
-})
+    const updatedRecordingsWrapper = screen.queryAllByRole("article");
+    expect(mockConfirm).toHaveBeenCalledTimes(1);
+    expect(mockConfirm).toHaveBeenCalledWith(
+      "Are you sure you want to delete this recording?"
+    );
+    expect(mockConfirm).toHaveReturned();
+    expect(updatedRecordingsWrapper[0]).toHaveClass("vanish");
+  });
+});

@@ -1,0 +1,97 @@
+@import "./../../index.scss";
+@import "react-h5-audio-player/src/styles.scss";
+
+.recording {
+  display: grid;
+  grid-template-columns: 2fr;
+  grid-template-rows: 2fr;
+  row-gap: 0.5rem;
+  width: 100%;
+
+  .content-icons {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem auto;
+  }
+
+  .shadow-icon-content {
+    width: 6rem;
+    height: 6rem;
+    background-color: $primaryDeep;
+    border-radius: 50%;
+
+    &.active {
+      background-color: rgba($color: $secondary, $alpha: 0.5);
+    }
+
+    .icon-content {
+      position: relative;
+      width: 80%;
+      height: 80%;
+      margin: 10% auto;
+      background-color: $primaryDeep;
+      box-shadow: inset -0.2rem 0.2rem 0.2rem $primary;
+      border: 0.2rem solid $black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.active {
+        background-color: $secondary;
+        box-shadow: inset -0.2rem 0.2rem 0.2rem $secondaryLight;
+      }
+
+      & svg {
+        padding-left: 0.3rem;
+      }
+    }
+  }
+}
+
+.audio {
+  display: flex;
+  width: 90%;
+  margin: 2rem auto 0 auto;
+  border-radius: 1rem;
+  background-color: $primary;
+  color: $secondary;
+
+  & div {
+    border: none;
+    color: $secondary;
+  }
+
+  & svg {
+    color: $secondary;
+  }
+}
+
+.rhap_container {
+  border: none;
+}
+.vanish {
+  animation: vanish 1s 1;
+}
+
+@keyframes vanish {
+  0% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  30% {
+    opacity: 0.4;
+  }
+  60% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+  }
+}

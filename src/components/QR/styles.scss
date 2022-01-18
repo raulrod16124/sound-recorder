@@ -1,0 +1,20 @@
+@import "./../../index.scss";
+
+.content-qr {
+  position: absolute;
+  top: 10rem;
+  left: 20%;
+  width: 60%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  background-color: $primaryDeep;
+  border-radius: 0.5rem;
+  padding: 1rem 0;
+  z-index: 1;
+
+  .qr-image {
+    width: 90%;
+    height: auto;
+  }
+}

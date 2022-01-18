@@ -1,0 +1,70 @@
+@import "./index.scss";
+
+.app {
+  position: relative;
+  margin: 0.5rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.header {
+  width: 90%;
+  height: 10rem;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .title {
+    text-align: center;
+    color: $secondary;
+  }
+
+  .settings {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .list-title {
+    color: $secondary;
+    font-weight: 400;
+  }
+
+  .icon-content {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    border: 0.2rem solid $black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .settings-cirlce {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      height: 0.6rem;
+      width: 0.6rem;
+      border-radius: 50%;
+      border: 0.1rem solid $secondary;
+    }
+  }
+}
+
+.main {
+  position: relative;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding-bottom: 10rem;
+}
